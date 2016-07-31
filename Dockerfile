@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 RUN apt-get update\
-    && apt-get install -y wget php5 php5-curl php5-imagick php5-gd php5-mysqlnd locales
+    && apt-get install -y wget php php-curl php-imagick php-gd php-mysql locales
 
 # set locale
 RUN sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
@@ -9,6 +9,8 @@ ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 RUN locale-gen
 
+# create and use user
+RUN useradd --create-home --shell /bin/bash www-data
 USER www-data
 
 ENV MOVIM_VERSION 0.9
