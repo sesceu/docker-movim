@@ -1,0 +1,36 @@
+#!/bin/bash
+
+if [[ -n "$DATABASE_TYPE" ]]; then
+    sed -i "s/\('type'\s*=>\s*'\)\(\w*\)/\1"$DATABASE_TYPE"/g" /var/www/html/config/db.inc.php
+fi
+
+if [[ -n "$DATABASE_USERNAME" ]]; then
+    sed -i "s/\('username'\s*=>\s*'\)\(\w*\)/\1"$DATABASE_USERNAME"/g" /var/www/html/config/db.inc.php
+fi
+
+if [[ -n "$DATABASE_PASSWORD" ]]; then
+    sed -i "s/\('password'\s*=>\s*'\)\(\w*\)/\1"$DATABASE_PASSWORD"/g" /var/www/html/config/db.inc.php
+fi
+
+if [[ -n "$DATABASE_HOST" ]]; then
+    sed -i "s/\('host'\s*=>\s*'\)\(\w*\)/\1"$DATABASE_HOST"/g" /var/www/html/config/db.inc.php
+fi
+
+if [[ -n "$DATABASE_PORT" ]]; then
+    sed -i "s/\('port'\s*=>\s*\)\([0-9]*\)/\1"$DATABASE_PORT"/g" /var/www/html/config/db.inc.php
+fi
+
+if [[ -n "$DATABASE_NAME" ]]; then
+    sed -i "s/\('database'\s*=>\s*'\)\(\w*\)/\1"$DATABASE_NAME"/g" /var/www/html/config/db.inc.php
+fi
+
+if [[ -z "$MOVIM_URL" ]]; then
+    export MOVIM_URL=http://localhost/
+fi
+
+if [[ -z "$MOVIM_PORT" ]]; then
+    export MOVIM_PORT=8080
+fi
+
+php /var/www/html/mud.php db set
+php /var/www/html/daemon.php $MOVIM_URL $MOVIM_PORT
