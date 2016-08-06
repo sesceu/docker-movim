@@ -32,7 +32,10 @@ if [[ -z "$MOVIM_PORT" ]]; then
     export MOVIM_PORT=8080
 fi
 
-#sudo service php7.0-fpm start
-#sudo service nginx start
 #php /var/www/html/mud.php db --set
-#php /var/www/html/daemon.php $MOVIM_URL $MOVIM_PORT
+sed -i "s/\(pid\s*=\s*\)\(.*\)/\1\/var\/run\/php-fpm7.0.pid/g" /etc/php/7.0/fpm/php-fpm.conf
+
+# fix permissions of volumes
+chown -R www-data:www-data /var/www/html/cache
+chown -R www-data:www-data /var/www/html/log
+chown -R www-data:www-data /var/www/html/users
