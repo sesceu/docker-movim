@@ -32,5 +32,7 @@ if [[ -z "$MOVIM_PORT" ]]; then
     export MOVIM_PORT=8080
 fi
 
-php /var/www/html/mud.php db set
-php /var/www/html/daemon.php $MOVIM_URL $MOVIM_PORT
+#sudo service php7.0-fpm start
+#sudo service nginx start
+#php /var/www/html/mud.php db --set
+#php /var/www/html/daemon.php $MOVIM_URL $MOVIM_PORT
